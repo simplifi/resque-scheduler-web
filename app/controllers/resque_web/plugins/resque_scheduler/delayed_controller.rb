@@ -19,7 +19,7 @@ module ResqueWeb
         # clicking the 'All schedules' link next to a delayed job.
         def jobs_klass
           klass = Resque::Scheduler::Util.constantize(params[:klass])
-          @args = params[:args] ? JSON.load(URI.decode(params[:args])) : []
+          @args = params[:args] ? JSON.load(CGI.unescape(params[:args])) : []
 
           if this_is_the_activejob_wrapper(klass)
             # @timestamps = get_timestamps_for_activejob_wrapper(klass)

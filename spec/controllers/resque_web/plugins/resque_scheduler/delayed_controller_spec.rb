@@ -46,7 +46,7 @@ describe ResqueWeb::Plugins::ResqueScheduler::DelayedController,
     before do
       Resque.enqueue_at(some_time_in_the_future, klass, 'foo', 'bar')
 
-      params = { klass: klass.to_s, args: URI.encode(%w(foo bar).to_json) }
+      params = { klass: klass.to_s, args: CGI.escape(%w(foo bar).to_json) }
       get :jobs_klass, params
     end
 
